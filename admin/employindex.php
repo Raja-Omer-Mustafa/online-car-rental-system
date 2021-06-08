@@ -1,4 +1,7 @@
-<?php  include('server.php'); ?>
+<?php  include('server.php');
+
+ ?>
+
 <?php 
 	if (isset($_GET['edit'])) {
 		$id = $_GET['edit'];
@@ -13,6 +16,7 @@
 			$email = $n['email'];
 		}
 	}
+	$search = $_GET['search'];
 ?>
 
 <!doctype html>
@@ -118,14 +122,22 @@
 
 <?php endif ?>
 <form action="" method="GET">
-<input id="search" name="search" type="text" placeholder="Type here">
+<input id="search" name="search" type="text" value="<?= !empty($search) ? $search : '' ?>" placeholder="Type here">
 <input id="submit" type="submit" value="Search">
 </form>
 
 <div>
-	<?php $results = mysqli_query($db, "SELECT * FROM employees"); ?>
-
-<table>
+	<?php
+	
+	if (!empty($search)) {
+		$query = "SELECT * FROM employees WHERE name LIKE '%".$search."%'";
+		$results = mysqli_query($db, $query);
+	}
+	else {
+		$results = mysqli_query($db, "SELECT * FROM employees");
+	}
+	?>
+ <table>
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -148,9 +160,11 @@
 			<td>
 				<a href="server.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a>
 			</td>
+			 
 		</tr>
 	<?php } ?>
 </table>
+
 </div>
 
 					
