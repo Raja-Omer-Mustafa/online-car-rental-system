@@ -147,6 +147,8 @@ foreach($results as $result)
                 <?php } ?>
        
               </li>
+              <a href="../carrental/stripepayment/index.php"class="btn btn-success">paynow</a>
+
 
 <h5 style="color:blue">Invoice</h5>
 <table>
