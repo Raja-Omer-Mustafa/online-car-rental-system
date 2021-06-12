@@ -1,30 +1,30 @@
-<?php 
-// Include configuration file  
-require_once 'config.php'; 
+<?php
+// Include configuration file
+require_once 'config.php';
 
 ?>
+<html lang="en-us">
 <head>
- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://js.stripe.com/v3/"></script>
 </head>
+<body>
 <div class="container">
-    <div class="row-fluid">
-    <!-- <div class="panel-heading">
+<div class="panel">
+    <div class="panel-heading">
         <h3 class="panel-title">Charge <?php echo '$'.$itemPrice; ?> with Stripe</h3>
-        
-        Product Info
+
+        <!-- Product Info -->
         <p><b>Item Name:</b> <?php echo $itemName; ?></p>
         <p><b>Price:</b> <?php echo '$'.$itemPrice.' '.$currency; ?></p>
-    </div> -->
-    
-
-<div class="panel-body">
+    </div>
+    <div class="panel-body">
         <!-- Display errors returned by createToken -->
         <div id="paymentResponse"></div>
-        
+
         <!-- Payment form -->
-        <form class="form-horizontal"action="payment.php" method="POST" id="paymentFrm">
+        <form action="payment.php" method="POST" id="paymentFrm">
             <div class="form-group">
                 <label>NAME</label>
                 <input type="text" name="name" id="name" class="field" placeholder="Enter name" required="" autofocus="">
@@ -37,23 +37,28 @@ require_once 'config.php';
                 <label>CARD NUMBER</label>
                 <div id="card_number" class="field"></div>
             </div>
+            <div class="row">
+                <div class="left">
                     <div class="form-group">
                         <label>EXPIRY DATE</label>
                         <div id="card_expiry" class="field"></div>
                     </div>
+                </div>
+                <div class="right">
                     <div class="form-group">
                         <label>CVC CODE</label>
                         <div id="card_cvc" class="field"></div>
                     </div>
-                
-            
+                </div>
+            </div>
             <button type="submit" class="btn btn-success" id="payBtn">Submit Payment</button>
         </form>
     </div>
-
+</div>
+</div>
 
 <!-- Stripe JS library -->
-<script src="https://js.stripe.com/v3/"></script>
+
 
 <script>
 // Create an instance of the Stripe object
@@ -135,8 +140,13 @@ function stripeTokenHandler(token) {
     hiddenInput.setAttribute('name', 'stripeToken');
     hiddenInput.setAttribute('value', token.id);
     form.appendChild(hiddenInput);
-	
+
     // Submit the form
     form.submit();
 }
 </script>
+</<body>
+
+
+
+</html>
